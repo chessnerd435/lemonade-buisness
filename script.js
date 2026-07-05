@@ -38,8 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event Listeners for Cart
     btnSmallPlus.addEventListener('click', () => {
-        smallCups++;
-        updateUI();
+        if (smallCups + bigCups < 4) {
+            smallCups++;
+            updateUI();
+        } else {
+            alert('You can only order up to 4 cups in total! 🍋');
+        }
     });
 
     btnSmallMinus.addEventListener('click', () => {
@@ -50,8 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnBigPlus.addEventListener('click', () => {
-        bigCups++;
-        updateUI();
+        if (smallCups + bigCups < 4) {
+            bigCups++;
+            updateUI();
+        } else {
+            alert('You can only order up to 4 cups in total! 🍋');
+        }
     });
 
     btnBigMinus.addEventListener('click', () => {
@@ -62,9 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Order Logic
-    btnOrder.addEventListener('click', () => {
+    btnOrder.addEventListener('click', async () => {
         const address = addressInput.value.trim();
         const totalCups = smallCups + bigCups;
+        const totalPrice = (smallCups * PRICE_SMALL) + (bigCups * PRICE_BIG);
 
         if (totalCups === 0) {
             alert('Please add at least one cup of lemonade to your order! 🍋');
@@ -77,9 +86,31 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Show success modal
-        modalAddress.textContent = address;
-        modal.classList.remove('hidden');
+        // Change button text to show loading state
+        const originalText = btnOrder.innerHTML;
+        btnOrder.innerHTML = '<span class="btn-text">Sending Order...</span><span class="btn-icon-right">⏳</span>';
+        btnOrder.disabled = true;
+
+        try {
+            // Populate hidden form and submit it
+            document.getElementById('form-address').value = address;
+            document.getElementById('form-small').value = smallCups;
+            document.getElementById('form-big').value = bigCups;
+            document.getElementById('form-total').value = "$" + totalPrice.toFixed(2);
+            
+            document.getElementById('hidden-form').submit();
+
+            // Show success modal (Note: page will navigate away, but just in case it takes a second)
+            modalAddress.textContent = address;
+            modal.classList.remove('hidden');
+        } catch (error) {
+            alert("Oops! There was a problem creating your order. Please try again.");
+            console.error(error);
+        } finally {
+            // Restore button
+            btnOrder.innerHTML = originalText;
+            btnOrder.disabled = false;
+        }
     });
 
     // Close Modal Logic
