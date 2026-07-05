@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Lemonade Delivery</title>
+    <meta name="description" content="Order the freshest lemonade, delivered straight to your door!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container">
+        <header class="hero">
+            <h1>Fresh Squeezed <span class="highlight">Lemonade</span></h1>
+            <p>Delivered ice-cold right to your doorstep. Tell us what you need!</p>
+        </header>
+
+        <section class="order-card glass">
+            <h2>Your Order</h2>
+            
+            <div class="menu">
+                <div class="menu-item">
+                    <div class="item-info">
+                        <h3>Small Cup</h3>
+                        <p class="price">$1.00</p>
+                    </div>
+                    <div class="controls">
+                        <button class="btn-icon" id="btn-small-minus" aria-label="Remove small cup">-</button>
+                        <span class="qty" id="qty-small">0</span>
+                        <button class="btn-icon" id="btn-small-plus" aria-label="Add small cup">+</button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-info">
+                        <h3>Big Cup</h3>
+                        <p class="price">$2.00</p>
+                    </div>
+                    <div class="controls">
+                        <button class="btn-icon" id="btn-big-minus" aria-label="Remove big cup">-</button>
+                        <span class="qty" id="qty-big">0</span>
+                        <button class="btn-icon" id="btn-big-plus" aria-label="Add big cup">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="delivery-details">
+                <label for="address">Delivery Address</label>
+                <textarea id="address" rows="3" placeholder="Enter your full house address..." required></textarea>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Total Cups:</span>
+                    <span id="total-cups">0</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total Price:</span>
+                    <span id="total-price">$0.00</span>
+                </div>
+            </div>
+
+            <button class="btn-primary" id="btn-order">
+                <span class="btn-text">Order Lemonade</span>
+                <span class="btn-icon-right">🍋</span>
+            </button>
+        </section>
+        
+        <div id="success-modal" class="modal hidden">
+            <div class="modal-content glass">
+                <h2>🎉 Order Placed!</h2>
+                <p>Your delicious lemonade is being prepared and will be delivered to:</p>
+                <p id="modal-address" class="highlight-text"></p>
+                <button class="btn-secondary" id="btn-close-modal">Order More</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
